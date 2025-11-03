@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Promo Jasa Pembuatan Website</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      @font-face {
+        font-family: "Johnston100";
+        src: url("https://db.onlinewebfonts.com/t/6f9f13ce8ac6971d7c1c21ca9189f7d0.woff2")
+          format("woff2");
+      }
+
+      body {
+        font-family: "Johnston100", sans-serif;
+        scroll-behavior: smooth;
+      }
+
+      .promo-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .promo-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(140, 16, 16, 0.2);
+      }
+
+      .gradient-bg {
+        background: linear-gradient(135deg, #8c1010 0%, #000000 100%);
+      }
+
+      .price-badge {
+        position: absolute;
+        top: -15px;
+        right: 20px;
+        background: #ff0000;
+        color: white;
+        padding: 8px 20px;
+        border-radius: 20px;
+        font-weight: bold;
+        box-shadow: 0 4px 10px rgba(255, 0, 0, 0.3);
+      }
+
+      .feature-icon {
+        width: 50px;
+        height: 50px;
+        background: linear-gradient(135deg, #8c1010, #ff0000);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1rem;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-20px);
+        }
+      }
+
+      .float-animation {
+        animation: float 3s ease-in-out infinite;
+      }
+
+      .btn-hover {
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s ease;
+      }
+
+      .btn-hover::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.2);
+        transform: translate(-50%, -50%);
+        transition: width 0.6s, height 0.6s;
+      }
+
+      .btn-hover:hover::before {
+        width: 300px;
+        height: 300px;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50">
+    <!-- Header -->
+    <header
+      class="glass flex bg-white justify-between items-center px-6 md:px-12 lg:px-24 py-6 fixed w-full z-40 top-0 border-b"
+      style="border-color: var(--border-color)"
+    >
+      <a href="index.html" class="flex w-24 md:w-32">
+        <svg
+          width="100"
+          height="40"
+          viewBox="0 0 100 40"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <text
+            x="10"
+            y="28"
+            font-size="24"
+            font-weight="bold"
+            fill="currentColor"
+          >
+            JOJO
+          </text>
+          <circle cx="90" cy="20" r="8" fill="#FF0000" />
+        </svg>
+      </a>
+
+      <div class="flex items-center gap-4">
+        <a
+          href="index.html"
+          class="flex items-center gap-2 px-4 py-2 border hover:bg-gray-100 transition-all"
+          style="border-color: var(--border-color)"
+        >
+          <svg
+            class="w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M10 19l-7-7m0 0l7-7m-7 7h18"
+            />
+          </svg>
+          <span>Back to Home</span>
+        </a>
+        <button
+          class="dark-mode-toggle"
+          id="darkModeToggle"
+          title="Toggle Dark Mode"
+          aria-label="Toggle Dark Mode"
+        >
+          <svg
+            class="sun-icon"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+            />
+          </svg>
+          <svg
+            class="moon-icon"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+            />
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <section class="gradient-bg text-white text-center py-60 px-6">
+      <div class="max-w-4xl mx-auto">
+        <h1 class="text-5xl md:text-6xl font-extrabold mb-4 animate-pulse">
+          🎉 Promo Spesial Akhir Tahun!
+        </h1>
+        <p class="text-xl md:text-2xl mb-6">
+          Dapatkan berbagai penawaran menarik untuk jasa pembuatan website
+          profesional
+        </p>
+        <div
+          class="inline-block bg-white text-black px-6 py-3 font-bold text-lg"
+        >
+          Diskon hingga 30% untuk paket tertentu!
+        </div>
+      </div>
+    </section>
+
+    <!-- Promo Cards -->
+    <div class="container mx-auto px-6 py-16">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Card 1: Landing Page -->
+        <div
+          class="promo-card bg-white shadow-lg overflow-hidden flex flex-col"
+        >
+          <img
+            src="/assets/btng/btng1.png"
+            class="w-full h-48 object-cover"
+            alt="Landing Page"
+          />
+          <div class="p-6 flex justify-between flex-col">
+            <div class="feature-icon mx-auto">
+              <svg
+                class="w-6 h-6 text-white"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                />
+              </svg>
+            </div>
+            <h5 class="text-2xl font-bold text-center mb-3">
+              Landing Page Profesional
+            </h5>
+            <p class="text-gray-600 text-center mb-4">
+              Website satu halaman yang menarik dan responsif untuk meningkatkan
+              konversi bisnis Anda.
+            </p>
+            <ul class="space-y-2 mb-6">
+              <li class="flex items-center text-sm">
+                <svg
+                  class="w-5 h-5 text-green-500 mr-2"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+                Responsive Design
+              </li>
+              <li class="flex items-center text-sm">
+                <svg
+                  class="w-5 h-5 text-green-500 mr-2"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+                SEO Optimized
+              </li>
+              <li class="flex items-center text-sm">
+                <svg
+                  class="w-5 h-5 text-green-500 mr-2"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+                Fast Loading
+              </li>
+            </ul>
+            <div class="text-center">
+              <span class="text-gray-400 line-through text-sm"
+                >Rp 2.500.000</span
+              >
+              <br />
+              <span class="text-3xl font-bold text-[#8C1010] ml-2"
+                >Rp 2.000.000</span
+              >
+            </div>
+            <button
+              class="btn-hover w-full mt-4 bg-gradient-to-r from-[#8C1010] to-black text-white py-3 font-semibold hover:shadow-xl"
+            >
+              <span class="relative z-10">Pesan Sekarang</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Card 2: Company Profile -->
+        <div class="promo-card bg-white shadow-lg flex flex-col">
+          <img
+            src="/assets/zezkun/zezkun1.png"
+            class="w-full h-48 object-cover"
+            alt="Company Profile"
+          />
+          <div class="p-6 h-full flex flex-col justify-between">
+            <div class="feature-icon mx-auto">
+              <svg
+                class="w-6 h-6 text-white"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+                />
+              </svg>
+            </div>
+            <h5 class="text-2xl font-bold text-center mb-3">Company Profile</h5>
+            <p class="text-gray-600 text-center mb-4">
+              Website profil perusahaan lengkap dengan halaman About, Services,
+              Portfolio, dan Contact.
+            </p>
+            <ul class="space-y-2 mb-6">
+              <li class="flex items-center text-sm">
+                <svg
+                  class="w-5 h-5 text-green-500 mr-2"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+                Multi-page Design
+              </li>
+              <li class="flex items-center text-sm">
+                <svg
+                  class="w-5 h-5 text-green-500 mr-2"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+                Contact Form
+              </li>
+              <li class="flex items-center text-sm">
+                <svg
+                  class="w-5 h-5 text-green-500 mr-2"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+                Google Maps Integration
+              </li>
+            </ul>
+            <div class="text-center">
+              <span class="text-gray-400 line-through text-sm"
+                >Rp 4.000.000</span
+              >
+              <br />
+              <span class="text-3xl font-bold text-[#8C1010] ml-2"
+                >Rp 3.000.000</span
+              >
+            </div>
+            <button
+              class="btn-hover w-full mt-4 bg-gradient-to-r from-[#8C1010] to-black text-white py-3 font-semibold hover:shadow-xl"
+            >
+              <span class="relative z-10">Pesan Sekarang</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Card 3: E-Commerce -->
+        <div class="promo-card bg-white shadow-lg flex flex-col">
+          <img
+            src="/assets/unisains/uni1.png"
+            class="w-full h-48 object-cover"
+            alt="E-Commerce"
+          />
+          <div class="p-6 h-full flex flex-col justify-between">
+            <div class="feature-icon mx-auto">
+              <svg
+                class="w-6 h-6 text-white"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+                />
+              </svg>
+            </div>
+            <h5 class="text-2xl font-bold text-center mb-3">
+              E-Commerce Website
+            </h5>
+            <p class="text-gray-600 text-center mb-4">
+              Toko online lengkap dengan sistem katalog produk, keranjang
+              belanja, dan checkout.
+            </p>
+            <ul class="space-y-2 mb-6">
+              <li class="flex items-center text-sm">
+                <svg
+                  class="w-5 h-5 text-green-500 mr-2"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+                Product Management
+              </li>
+              <li class="flex items-center text-sm">
+                <svg
+                  class="w-5 h-5 text-green-500 mr-2"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+                Shopping Cart
+              </li>
+              <li class="flex items-center text-sm">
+                <svg
+                  class="w-5 h-5 text-green-500 mr-2"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+                Payment Gateway Ready
+              </li>
+            </ul>
+            <div class="text-center">
+              <span class="text-gray-400 line-through text-sm"
+                >Rp 10.000.000</span
+              ><br />
+              <span class="text-3xl font-bold text-[#8C1010] ml-2"
+                >Rp 7.000.000</span
+              >
+            </div>
+            <button
+              class="btn-hover w-full mt-4 bg-gradient-to-r from-[#8C1010] to-black text-white py-3 font-semibold hover:shadow-xl"
+            >
+              <span class="relative z-10">Pesan Sekarang</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bonus Section -->
+      <div class="mt-16 text-center">
+        <div
+          class="inline-block bg-gradient-to-r from-[#8C1010] to-black text-white px-12 py-8 shadow-2xl"
+        >
+          <h3 class="text-3xl font-bold mb-4">🎁 Bonus Spesial!</h3>
+          <p class="text-lg mb-2">Setiap pembelian paket mendapatkan:</p>
+          <ul class="space-y-2 text-left max-w-md mx-auto">
+            <li class="flex items-center">
+              <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  fill-rule="evenodd"
+                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+              Free SSL Certificate (1 Tahun)
+            </li>
+            <li class="flex items-center">
+              <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  fill-rule="evenodd"
+                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+              Free Domain (1 Tahun)
+            </li>
+            <li class="flex items-center">
+              <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  fill-rule="evenodd"
+                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+              Maintenance 3 Bulan
+            </li>
+            <li class="flex items-center">
+              <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  fill-rule="evenodd"
+                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+              Training Penggunaan Website
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer
+      class="bg-gradient-to-b from-black to-[#721919] text-white py-12 px-6 md:px-12 lg:px-24"
+    >
+      <div class="max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+          <div class="animate-fadeIn">
+            <h3 class="text-2xl font-bold mb-4">Jolang</h3>
+            <p class="text-gray-300 text-sm leading-relaxed">
+              Frontend Developer passionate about creating beautiful and
+              functional web experiences.
+            </p>
+          </div>
+
+          <div class="animate-fadeIn" style="animation-delay: 0.1s">
+            <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+            <ul class="space-y-2">
+              <li>
+                <a
+                  href="#main-section"
+                  class="footer-link text-gray-300 hover:text-white text-sm"
+                  >Home</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#about"
+                  class="footer-link text-gray-300 hover:text-white text-sm"
+                  >About</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#project"
+                  class="footer-link text-gray-300 hover:text-white text-sm"
+                  >Projects</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#certificate"
+                  class="footer-link text-gray-300 hover:text-white text-sm"
+                  >Certificates</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#contact"
+                  class="footer-link text-gray-300 hover:text-white text-sm"
+                  >Contact</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div class="animate-fadeIn" style="animation-delay: 0.2s">
+            <h4 class="text-lg font-semibold mb-4">Connect</h4>
+            <div class="flex gap-4">
+              <a
+                href="mailto:jolangalif@gmail.com"
+                class="social-icon w-10 h-10 bg-white rounded-full flex items-center justify-center text-black hover:bg-[#FF0000] hover:text-white"
+                title="Email"
+              >
+                <svg
+                  class="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                  />
+                </svg>
+              </a>
+
+              <!-- GitHub -->
+
+              <a
+                href="https://github.com/Jolangalifk"
+                target="_blank"
+                class="social-icon w-10 h-10 bg-white rounded-full flex items-center justify-center text-black hover:bg-[#FF0000] hover:text-white"
+                title="GitHub"
+              >
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path
+                    d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
+                  />
+                </svg>
+              </a>
+
+              <!-- LinkedIn -->
+
+              <a
+                href="https://www.linkedin.com/in/jolang-alif-b02362287"
+                target="_blank"
+                class="social-icon w-10 h-10 bg-white rounded-full flex items-center justify-center text-black hover:bg-[#FF0000] hover:text-white"
+                title="LinkedIn"
+              >
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path
+                    d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"
+                  />
+                </svg>
+              </a>
+
+              <!-- Instagram -->
+
+              <a
+                href="https://instagram.com/gnalojo"
+                target="_blank"
+                class="social-icon w-10 h-10 bg-white rounded-full flex items-center justify-center text-black hover:bg-[#FF0000] hover:text-white"
+                title="Instagram"
+              >
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path
+                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"
+                  />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="border-t border-gray-700 pt-8">
+          <div
+            class="flex flex-col md:flex-row justify-between items-center gap-4"
+          >
+            <p class="text-gray-400 text-sm">
+              Jolang Alif Khan - A12.2024.07239
+            </p>
+            <p class="text-gray-400 text-sm">
+              © 2025 All rights reserved. <span id="clock"></span>
+            </p>
+            <div class="flex gap-6">
+              <a
+                href="#"
+                class="footer-link text-gray-400 hover:text-white text-sm"
+                >Privacy Policy</a
+              >
+              <a
+                href="#"
+                class="footer-link text-gray-400 hover:text-white text-sm"
+                >Terms of Service</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Real-time Clock
+      function showTime() {
+        const now = new Date();
+        const time = now.toLocaleTimeString("id-ID");
+        document.getElementById("clock").textContent = "Waktu: " + time;
+      }
+      setInterval(showTime, 1000);
+      showTime();
+    </script>
+  </body>
+</html>

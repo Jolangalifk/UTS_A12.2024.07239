@@ -1,0 +1,1809 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="icon" href="/assets/favicon.svg">
+    <title>Portfolio Jojo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="text/JavaScript"src="js/atur1.js"></script>
+    <style>
+      @font-face {
+        font-family: "Johnston100";
+        src: url("https://db.onlinewebfonts.com/t/6f9f13ce8ac6971d7c1c21ca9189f7d0.woff2")
+          format("woff2");
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --rail-inactive: #d0d0d0;
+        --tracker-dot: #f44336;
+        --tracker-dot-size: 10px;
+        --bg-primary: #ffffff;
+        --bg-secondary: #f5f5f5;
+        --text-primary: #000000;
+        --text-secondary: #666666;
+        --border-color: #e5e5e5;
+      }
+
+      /* CSS - Ganti styling toggle */
+      .dark-mode-toggle {
+        width: 44px;
+        height: 44px;
+        background: var(--bg-primary);
+        border: 2px solid var(--border-color);
+        border-radius: 50%;
+        position: relative;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+
+      .dark-mode-toggle:hover {
+        border-color: #ff0000;
+        transform: scale(1.1);
+      }
+
+      .dark-mode-toggle .sun-icon,
+      .dark-mode-toggle .moon-icon {
+        width: 24px;
+        height: 24px;
+        position: absolute;
+        transition: all 0.3s ease;
+        color: var(--text-primary);
+      }
+
+      /* Light mode - tampilkan matahari */
+      .dark-mode-toggle .sun-icon {
+        opacity: 1;
+        transform: rotate(0deg) scale(1);
+      }
+
+      .dark-mode-toggle .moon-icon {
+        opacity: 0;
+        transform: rotate(180deg) scale(0);
+      }
+
+      /* Dark mode - tampilkan bulan */
+      .dark-mode-toggle.active .sun-icon {
+        opacity: 0;
+        transform: rotate(-180deg) scale(0);
+      }
+
+      .dark-mode-toggle.active .moon-icon {
+        opacity: 1;
+        transform: rotate(0deg) scale(1);
+      }
+
+      /* Hapus ::before yang lama */
+      .dark-mode-toggle::before {
+        display: none;
+      }
+
+      /* Dark mode body styles tetap sama */
+      body.dark-mode {
+        --bg-primary: #1a1a1a;
+        --bg-secondary: #2a2a2a;
+        --text-primary: #ffffff;
+        --text-secondary: #a0a0a0;
+        --border-color: #404040;
+      }
+
+      body {
+        font-family: "Johnston100", sans-serif;
+        scroll-behavior: smooth;
+        background: var(--bg-primary);
+        color: var(--text-primary);
+        transition: background 0.3s ease, color 0.3s ease;
+      }
+
+      .glass {
+        backdrop-filter: blur(10px);
+        background: rgba(255, 255, 255, 0.95);
+      }
+
+      body.dark-mode .glass {
+        background: rgba(26, 26, 26, 0.95);
+      }
+
+      body.dark-mode {
+        background: linear-gradient(to bottom, #1a1a1a 0%, #2a1a1a 100%);
+      }
+
+      section {
+        scroll-margin-top: 100px;
+      }
+
+      .glass {
+        backdrop-filter: blur(10px);
+        background: rgba(255, 255, 255, 0.95);
+      }
+
+      body.dark-mode .glass {
+        background: rgba(26, 26, 26, 0.95);
+      }
+
+      .nav {
+        position: relative;
+      }
+
+      .nav-rail {
+        --index: 1;
+        --position: calc(
+          (var(--index) * 10rem) - 5rem - ((var(--tracker-dot-size) / 2) + 2px)
+        );
+        position: absolute;
+        height: 4px;
+        background: var(--rail-inactive);
+        width: 100%;
+        top: -0.5rem;
+      }
+
+      .nav-rail::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        background: var(--text-primary);
+        height: 100%;
+        width: var(--position);
+        transition: width 0.5s ease-in-out;
+      }
+
+      .nav-rail span {
+        position: absolute;
+        width: var(--tracker-dot-size);
+        height: var(--tracker-dot-size);
+        background: var(--tracker-dot);
+        border: 2px solid #f3f3f3;
+        box-shadow: 0 0 0 3px #f3f3f3;
+        animation: pulse 1s infinite linear;
+        top: 30%;
+        transform: translateY(-50%);
+        border-radius: 9999px;
+        transition: left 0.5s ease-in-out;
+        left: var(--position);
+        z-index: 10;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          box-shadow: 0 0 0 3px #f3f3f3;
+        }
+        50% {
+          box-shadow: 0 0 0 6px rgba(243, 243, 243, 0.5);
+        }
+      }
+
+      .nav-item {
+        position: relative;
+        height: 4px;
+        text-decoration: none;
+        color: var(--text-primary);
+        transition: opacity 0.3s;
+      }
+
+      .nav-item:hover {
+        opacity: 0.7;
+      }
+
+      .nav-item::before {
+        content: "";
+        width: 4px;
+        height: 12px;
+        background: var(--rail-inactive);
+        position: absolute;
+        bottom: 0;
+        left: 49%;
+        transform: translateX(-50%);
+        z-index: -1;
+      }
+
+      .nav-item.dot::before {
+        content: "";
+        width: calc((var(--tracker-dot-size) * 2) + 5px);
+        height: calc((var(--tracker-dot-size) * 2) + 5px);
+        position: absolute;
+        background: var(--bg-primary);
+        border-radius: 1rem;
+        box-shadow: inset 0 0 0 1px var(--text-primary);
+        transform: translate(-51%, 7%);
+        z-index: 1;
+      }
+
+      .nav-item span {
+        position: absolute;
+        text-align: center;
+        inset: 0;
+        top: 0.5rem;
+        display: flex;
+        align-items: start;
+        justify-content: center;
+      }
+
+      .mobile-menu {
+        display: none;
+      }
+
+      .mobile-menu.active {
+        display: flex;
+      }
+
+      .hamburger span {
+        display: block;
+        width: 25px;
+        height: 3px;
+        background: var(--text-primary);
+        margin: 5px 0;
+        transition: 0.3s;
+      }
+
+      .hamburger.active span:nth-child(1) {
+        transform: rotate(-45deg) translate(-5px, 6px);
+      }
+
+      .hamburger.active span:nth-child(2) {
+        opacity: 0;
+      }
+
+      .hamburger.active span:nth-child(3) {
+        transform: rotate(45deg) translate(-5px, -6px);
+      }
+
+      @media (max-width: 1024px) {
+        .desktop-nav {
+          display: none;
+        }
+
+        .hamburger-btn {
+          display: block;
+        }
+      }
+
+      @media (min-width: 1025px) {
+        .hamburger-btn {
+          display: none;
+        }
+      }
+
+      @media (max-width: 768px) {
+        header {
+          padding: 1rem 1.5rem !important;
+        }
+
+        .contact-btn {
+          padding: 0.5rem 1rem !important;
+          font-size: 0.875rem;
+        }
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes slideInLeft {
+        from {
+          opacity: 0;
+          transform: translateX(-30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      @keyframes slideInRight {
+        from {
+          opacity: 0;
+          transform: translateX(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      .animate-fadeIn {
+        animation: fadeIn 0.5s ease-in-out;
+      }
+
+      .animate-slideInLeft {
+        animation: slideInLeft 0.6s ease-out;
+      }
+
+      .animate-slideInRight {
+        animation: slideInRight 0.6s ease-out;
+      }
+
+      .project-card {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        background: var(--bg-primary);
+        border-color: var(--border-color);
+      }
+
+      .project-card:hover {
+        transform: translateY(-8px);
+      }
+
+      .project-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .project-desc {
+        flex: 1;
+        min-height: 60px;
+      }
+
+      .btn-hover {
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s ease;
+      }
+
+      .btn-hover::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.2);
+        transform: translate(-50%, -50%);
+        transition: width 0.6s, height 0.6s;
+      }
+
+      .btn-hover:hover::before {
+        width: 300px;
+        height: 300px;
+      }
+
+      .btn-hover:active {
+        transform: scale(0.95);
+      }
+
+      @media (max-width: 1024px) {
+        #main-section {
+          flex-direction: row;
+          padding: 4rem;
+          text-align: center;
+        }
+
+        #main-section h1 {
+          font-size: 4rem !important;
+          line-height: 3.5rem !important;
+        }
+
+        #main-section img {
+          max-height: 90vh;
+        }
+      }
+
+      @media (max-width: 768px) {
+        #main-section {
+          flex-direction: column;
+          padding: 6rem 2rem 2rem;
+          text-align: center;
+          gap: 1rem;
+        }
+
+        #main-section img {
+          max-height: 50vh;
+        }
+
+        #main-section h1 {
+          font-size: 3rem !important;
+          line-height: 2.8rem !important;
+        }
+
+        #about {
+          padding: 3rem 1.5rem !important;
+        }
+
+        #about > div:first-child {
+          width: 100% !important;
+        }
+
+        #about .flex-row {
+          flex-direction: column !important;
+        }
+
+        #about .flex-row > div {
+          width: 100% !important;
+        }
+
+        #project,
+        #certificate,
+        #contact {
+          padding: 3rem 1.5rem !important;
+        }
+
+        .grid {
+          grid-template-columns: 1fr !important;
+        }
+      }
+
+      .certificate-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        background: var(--bg-primary);
+        border-color: var(--border-color);
+      }
+
+      .certificate-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      }
+
+      .footer-link {
+        position: relative;
+        transition: color 0.3s ease;
+      }
+
+      .footer-link::after {
+        content: "";
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: #ff0000;
+        transition: width 0.3s ease;
+      }
+
+      .footer-link:hover::after {
+        width: 100%;
+      }
+
+      .social-icon {
+        transition: all 0.3s ease;
+      }
+
+      .social-icon:hover {
+        transform: translateY(-4px) scale(1.1);
+        filter: brightness(1.2);
+      }
+
+      body.dark-mode #main-section {
+        background: linear-gradient(to top right, #2a1a1a, #1a1a1a);
+      }
+
+      body.dark-mode .mobile-menu {
+        background: rgba(26, 26, 26, 0.95);
+      }
+
+      /* Certificate Modal */
+      .cert-modal {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(5px);
+        z-index: 9999;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem;
+        animation: fadeIn 0.3s ease-out;
+      }
+
+      .cert-modal.active {
+        display: flex;
+      }
+
+      .cert-modal-content {
+        background: var(--bg-primary);
+        border: 1px solid var(--border-color);
+        border-radius: 1rem;
+        max-width: 900px;
+        width: 100%;
+        max-height: 90vh;
+        overflow-y: auto;
+        position: relative;
+        animation: scaleIn 0.3s ease-out;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      }
+
+      .cert-modal-close {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: rgba(0, 0, 0, 0.5);
+        color: white;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        z-index: 10;
+      }
+
+      .cert-modal-close:hover {
+        background: #ff0000;
+        transform: rotate(90deg);
+      }
+
+      .cert-image-container {
+        position: relative;
+        width: 100%;
+        background: #f5f5f5;
+        border-radius: 0.5rem;
+        overflow: hidden;
+      }
+
+      body.dark-mode .cert-image-container {
+        background: #2a2a2a;
+      }
+
+      .cert-image-container img {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+
+      .eye-icon {
+        transition: all 0.3s ease;
+      }
+
+      .eye-icon:hover {
+        transform: scale(1.2);
+        color: #ff0000;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      @keyframes scaleIn {
+        from {
+          opacity: 0;
+          transform: scale(0.9);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <header
+      class="glass text-black flex justify-between items-center px-6 md:px-12 py-6 fixed w-full z-40 top-0 border-b"
+      style="border-color: var(--border-color)"
+    >
+      <a href="#main-section" class="flex w-24 md:w-32">
+        <svg
+          width="100"
+          height="40"
+          viewBox="0 0 100 40"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <text
+            x="10"
+            y="28"
+            font-size="24"
+            font-weight="bold"
+            fill="currentColor"
+            style="fill: var(--text-primary)"
+          >
+            JOJO
+          </text>
+          <circle cx="90" cy="20" r="8" fill="#FF0000" />
+        </svg>
+      </a>
+
+      <nav
+        class="desktop-nav nav none lg:flex flex-col items-center justify-center"
+      >
+        <div class="nav-rail">
+          <span></span>
+        </div>
+
+        <div class="nav-items flex items-center">
+          <a
+            href="#main-section"
+            class="nav-item lg:w-[10rem] md:w-[7rem] dot"
+            data-index="0"
+          >
+            <span>Home</span>
+          </a>
+          <a
+            href="#about"
+            class="nav-item lg:w-[10rem] md:w-[7rem]"
+            data-index="1"
+          >
+            <span>About</span>
+          </a>
+          <a
+            href="#project"
+            class="nav-item lg:w-[10rem] md:w-[7rem]"
+            data-index="2"
+          >
+            <span>Project</span>
+          </a>
+          <a
+            href="#certificate"
+            class="nav-item lg:w-[10rem] md:w-[7rem]"
+            data-index="3"
+          >
+            <span>Certificate</span>
+          </a>
+          <a
+            href="/promo.html"
+            class="nav-item lg:w-[10rem] md:w-[7rem]"
+            data-index="3"
+          >
+            <span>Promotion</span>
+          </a>
+        </div>
+      </nav>
+
+      <div class="flex flex-row gap-4">
+        <button
+          class="dark-mode-toggle block lg:hidden"
+          id="darkModeToggle"
+          title="Toggle Dark Mode"
+        ><svg
+            class="sun-icon"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+            />
+          </svg>
+          <svg
+            class="moon-icon"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+            />
+          </svg></button>
+        <button class="hamburger-btn hamburger none" id="hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+      
+      <div class="items-center gap-4 hidden lg:flex">
+        <!-- toggle button -->
+        <button
+          class="dark-mode-toggle"
+          id="darkModeToggle"
+          title="Toggle Dark Mode"
+          aria-label="Toggle Dark Mode"
+        >
+          <svg
+            class="sun-icon"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+            />
+          </svg>
+          <svg
+            class="moon-icon"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+            />
+          </svg>
+        </button>
+
+        <div
+          class="contact-btn cursor-pointer p-3 bg-gradient-to-t from-[#FFDFDF] to-white border border-b-4 border-b-[#FF0000] shadow-sm hover:shadow-md transition-all"
+          style="
+            border-color: var(--border-color);
+            border-bottom-color: #ff0000;
+          "
+        >
+          <a href="#contact">Contact</a>
+        </div>
+      </div>
+    </header>
+
+    <div
+      class="mobile-menu fixed top-[73px] left-0 right-0 glass border-b shadow-lg z-30 flex-col py-4"
+      style="border-color: var(--border-color)"
+    >
+      <a
+        href="#main-section"
+        class="mobile-nav-item block px-6 py-3 hover:bg-gray-100 transition-colors"
+        data-index="0"
+        >Home</a
+      >
+      <a
+        href="#about"
+        class="mobile-nav-item block px-6 py-3 hover:bg-gray-100 transition-colors"
+        data-index="1"
+        >About</a
+      >
+      <a
+        href="#project"
+        class="mobile-nav-item block px-6 py-3 hover:bg-gray-100 transition-colors"
+        data-index="2"
+        >Project</a
+      >
+      <a
+        href="#certificate"
+        class="mobile-nav-item block px-6 py-3 hover:bg-gray-100 transition-colors"
+        data-index="3"
+        >Certificate</a
+      >
+      <a
+        href="/promo.html"
+        class="mobile-nav-item block px-6 py-3 hover:bg-gray-100 transition-colors"
+        data-index="3"
+        >Promotion</a
+      >
+      <a
+        href="#contact"
+        class="mobile-nav-item block px-6 py-3 bg-gradient-to-r from-[#FFDFDF] to-white border-t font-semibold"
+        style="border-color: var(--border-color)"
+        >Contact</a
+      >
+    </div>
+
+    <section
+      id="main-section"
+      class="relative flex items-center justify-between w-full min-h-screen overflow-hidden bg-gradient-to-tr from-[#FFDFDFFF] to-[#FFFFFF] px-6 md:px-12 lg:px-24 pt-24"
+    >
+      <div
+        class="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-white pointer-events-none"
+      ></div>
+
+      <div class="flex flex-col gap-6 z-10 animate-slideInLeft">
+        <p class="text-lg md:text-xl">Hey, there!</p>
+        <h1 class="text-5xl md:text-7xl font-extrabold uppercase leading-tight">
+          I am<br />Jolang
+        </h1>
+
+        <div class="flex items-center">
+          <span
+            class="inline-flex items-center gap-2 bg-white text-black border px-4 py-1.5 text-sm shadow-sm"
+            style="border-color: var(--border-color)"
+          >
+            <span
+              class="inline-block w-3 h-3 bg-[#FF0000] shadow-inner animate-pulse"
+            ></span>
+            Available for new opportunities
+          </span>
+        </div>
+      </div>
+
+      <img
+        src="/assets/main.png"
+        alt="main image"
+        class="object-contain max-h-[60vh] md:max-h-[100vh] z-20 animate-fadeIn"
+      />
+
+      <div
+        class="relative flex flex-col items-center justify-center h-full animate-slideInRight"
+      >
+        <p class="text-sm mb-6 text-center leading-relaxed">
+          Specialized in Web Design,<br />
+          UX / UI, Webflow, and Front End Development.
+        </p>
+        <a target="_blank" href="https://drive.google.com/file/d/1TK7mJYRBTG-fzhP13K69wselnFkO_biZ/view?usp=sharing"
+          class="btn-hover inline-block p-4 bg-gradient-to-r from-[#8C1010FF] to-[#000000] text-white relative z-10"
+        >
+          <span class="relative z-10">Download CV</span>
+        </a>
+      </div>
+    </section>
+
+    <section
+      id="about"
+      class="flex flex-col items-center min-h-screen gap-16 p-6 md:p-12 lg:px-24"
+    >
+      <div
+        class="flex flex-col w-full lg:w-1/2 h-fit gap-4 text-center animate-fadeIn"
+      >
+        <h1 class="text-3xl md:text-4xl font-bold">About Me</h1>
+        <p
+          class="text-center text-sm md:text-base"
+          style="color: var(--text-secondary)"
+        >
+          Passionate frontend web developer with expertise in creating
+          responsive and visually appealing user interfaces. Proficient in HTML,
+          CSS, and JavaScript, with a focus on creating great user experiences.
+          Experienced in collaborating with teams and turning design concepts
+          into interactive websites. Committed to staying up-to-date with the
+          latest web technologies to deliver modern and engaging digital
+          solutions.
+        </p>
+      </div>
+
+      <div class="flex flex-col lg:flex-row gap-8 w-full">
+        <div
+          class="flex flex-col p-6 border w-full lg:w-1/2 bg-gradient-to-b from-[#000000FF] to-[#721919FF] gap-4 text-white animate-slideInLeft"
+        >
+          <h2 class="text-2xl font-bold">Education</h2>
+          <ol class="space-y-2">
+            <li class="flex items-start gap-2 text-sm">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-4 h-4 text-[#FF4800] mt-[2px]"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M5 13l4 4L19 7"
+                />
+              </svg>
+              Pengembangan Perangkat Lunak dan Game - SMK Raden Umar Said Kudus
+            </li>
+            <li class="flex items-start gap-2 text-sm">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-4 h-4 text-[#FF4800] mt-[2px]"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M5 13l4 4L19 7"
+                />
+              </svg>
+              S1 Sistem Informasi - Universitas Dian Nuswantoro
+            </li>
+          </ol>
+        </div>
+
+        <div
+          class="flex flex-col p-6 border w-full lg:w-1/2 bg-gradient-to-t from-[#000000FF] to-[#721919FF] gap-4 text-white animate-slideInRight"
+        >
+          <h2 class="text-2xl font-bold">Experience</h2>
+          <ol class="space-y-2">
+            <li class="flex items-start gap-2 text-sm">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-4 h-4 text-[#FF4800] mt-[2px]"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M5 13l4 4L19 7"
+                />
+              </svg>
+              Intern Front End Web Developer - CAN Creative
+            </li>
+            <li class="flex items-start gap-2 text-sm">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-4 h-4 text-[#FF4800] mt-[2px]"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M5 13l4 4L19 7"
+                />
+              </svg>
+              Front End Web Developer - Dian Nuswantoro Computer Club (DNCC)
+            </li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section id="project" class="min-h-screen py-10 px-6 md:px-12 lg:px-24">
+      <div class="max-w-7xl mx-auto">
+        <h1 class="text-3xl md:text-4xl font-bold mb-8">My Project</h1>
+
+        <div
+          id="project-grid"
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8"
+        ></div>
+
+        <div class="flex justify-center">
+          <button
+            id="see-more-btn"
+            class="btn-hover group relative px-8 py-3 bg-gradient-to-r from-[#8C1010] to-black text-white font-medium overflow-hidden transition-all duration-300 hover:shadow-lg hover:scale-105"
+          >
+            <span class="relative z-10" id="btn-text">See More</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section
+      id="certificate"
+      class="flex flex-col min-h-screen py-10 px-6 md:px-12 lg:px-24 gap-8"
+    >
+      <h1 class="text-3xl md:text-4xl font-bold">Certificate</h1>
+      <div
+        id="certificate-grid"
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+      ></div>
+    </section>
+
+    <!-- Certificate Modal -->
+    <div id="certModal" class="cert-modal">
+      <div class="cert-modal-content">
+        <button class="cert-modal-close" id="closeCertModal">
+          <svg
+            class="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+
+        <div class="p-6 md:p-8">
+          <div class="cert-image-container mb-6">
+            <img id="certModalImage" src="" alt="Certificate" class="w-full" />
+          </div>
+
+          <div class="space-y-4">
+            <h2 id="certModalTitle" class="text-2xl md:text-3xl font-bold"></h2>
+
+            <div
+              class="flex flex-wrap items-center gap-4 text-sm"
+              style="color: var(--text-secondary)"
+            >
+              <div class="flex items-center gap-2">
+                <svg
+                  class="w-5 h-5 text-[#FF0000]"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+                  />
+                </svg>
+                <span id="certModalIssuer"></span>
+              </div>
+              <div class="flex items-center gap-2">
+                <svg
+                  class="w-5 h-5 text-[#FF0000]"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                  />
+                </svg>
+                <span id="certModalDate"></span>
+              </div>
+            </div>
+
+            <div
+              class="pt-4 border-t"
+              style="border-color: var(--border-color)"
+            >
+              <h3 class="text-lg font-semibold mb-2">Deskripsi</h3>
+              <p
+                id="certModalDesc"
+                class="leading-relaxed"
+                style="color: var(--text-secondary)"
+              ></p>
+            </div>
+
+            <div class="flex pt-4">
+              <button
+                id="backCertModal"
+                class="btn-hover flex justify-center flex-1 px-6 py-3 bg-gradient-to-r from-[#8C1010] to-black text-white font-medium rounded-lg"
+              >
+                <span class="relative z-10">Kembali</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section
+      id="contact"
+      class="flex flex-col min-h-screen px-6 md:px-12 lg:px-24 gap-8 py-10"
+    >
+      <div class="flex flex-col">
+        <h2 class="text-3xl md:text-4xl font-bold">Get in touch</h2>
+        <p class="text-sm md:text-base" style="color: var(--text-secondary)">
+          Punya proyek atau mau kolaborasi? Isi formulir ini atau hubungi via
+          email / sosial media.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8 items-start">
+        <div>
+          <div
+            class="glass p-6 border"
+            style="border-color: var(--border-color)"
+          >
+            <form id="contactForm" class="flex flex-col gap-3">
+              <input
+                type="text"
+                name="name"
+                placeholder="Nama"
+                class="p-3 bg-transparent border text-sm transition-all focus:border-[#FF0000] focus:outline-none"
+                style="
+                  border-color: var(--border-color);
+                  color: var(--text-primary);
+                "
+                required
+              />
+              <input
+                type="email"
+                name="email"
+                placeholder="Email"
+                class="p-3 bg-transparent border text-sm transition-all focus:border-[#FF0000] focus:outline-none"
+                style="
+                  border-color: var(--border-color);
+                  color: var(--text-primary);
+                "
+                required
+              />
+              <input
+                type="text"
+                name="subject"
+                placeholder="Subjek"
+                class="p-3 bg-transparent border text-sm transition-all focus:border-[#FF0000] focus:outline-none"
+                style="
+                  border-color: var(--border-color);
+                  color: var(--text-primary);
+                "
+              />
+              <textarea
+                name="message"
+                rows="5"
+                placeholder="Pesan"
+                class="p-3 bg-transparent border text-sm transition-all focus:border-[#FF0000] focus:outline-none"
+                style="
+                  border-color: var(--border-color);
+                  color: var(--text-primary);
+                "
+                required
+              ></textarea>
+              <div class="flex items-center gap-3">
+                <button
+                  type="submit"
+                  class="btn-hover px-5 w-full py-3 bg-gradient-to-r from-[#8C1010FF] to-[#000000] text-white border border-white"
+                >
+                  <span class="relative z-10">Kirim Pesan</span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div class="p-6 border bg-black text-white glass">
+          <h4 class="font-semibold">Lokasi</h4>
+          <p class="text-white text-sm mt-2">Semarang, Indonesia</p>
+
+          <div class="mt-3 w-full h-40 overflow-hidden border border-slate-700">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3959.4379977202467!2d110.42000747499509!3d-6.990398994944575!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e708b53c249a6fb%3A0xa6bde9c7b304c112!2sSemarang%2C%20Central%20Java!5e0!3m2!1sen!2sid!4v1697992994000!5m2!1sen!2sid"
+              width="100%"
+              height="100%"
+              style="border: 0"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+            ></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer
+      class="bg-gradient-to-b from-black to-[#721919] text-white py-12 px-6 md:px-12 lg:px-24"
+    >
+      <div class="max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+          <div class="animate-fadeIn">
+            <h3 class="text-2xl font-bold mb-4">Jolang</h3>
+            <p class="text-gray-300 text-sm leading-relaxed">
+              Frontend Developer passionate about creating beautiful and
+              functional web experiences.
+            </p>
+          </div>
+
+          <div class="animate-fadeIn" style="animation-delay: 0.1s">
+            <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+            <ul class="space-y-2">
+              <li>
+                <a
+                  href="#main-section"
+                  class="footer-link text-gray-300 hover:text-white text-sm"
+                  >Home</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#about"
+                  class="footer-link text-gray-300 hover:text-white text-sm"
+                  >About</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#project"
+                  class="footer-link text-gray-300 hover:text-white text-sm"
+                  >Projects</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#certificate"
+                  class="footer-link text-gray-300 hover:text-white text-sm"
+                  >Certificates</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#contact"
+                  class="footer-link text-gray-300 hover:text-white text-sm"
+                  >Contact</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div class="animate-fadeIn" style="animation-delay: 0.2s">
+            <h4 class="text-lg font-semibold mb-4">Connect</h4>
+            <div class="flex gap-4">
+              <a
+                href="mailto:jolangalif@gmail.com"
+                class="social-icon w-10 h-10 bg-white rounded-full flex items-center justify-center text-black hover:bg-[#FF0000] hover:text-white"
+                title="Email"
+              >
+                <svg
+                  class="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                  />
+                </svg>
+              </a>
+
+              <!-- GitHub -->
+
+              <a
+                href="https://github.com/Jolangalifk"
+                target="_blank"
+                class="social-icon w-10 h-10 bg-white rounded-full flex items-center justify-center text-black hover:bg-[#FF0000] hover:text-white"
+                title="GitHub"
+              >
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path
+                    d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
+                  />
+                </svg>
+              </a>
+
+              <!-- LinkedIn -->
+
+              <a
+                href="https://www.linkedin.com/in/jolang-alif-b02362287"
+                target="_blank"
+                class="social-icon w-10 h-10 bg-white rounded-full flex items-center justify-center text-black hover:bg-[#FF0000] hover:text-white"
+                title="LinkedIn"
+              >
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path
+                    d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"
+                  />
+                </svg>
+              </a>
+
+              <!-- Instagram -->
+
+              <a
+                href="https://instagram.com/gnalojo"
+                target="_blank"
+                class="social-icon w-10 h-10 bg-white rounded-full flex items-center justify-center text-black hover:bg-[#FF0000] hover:text-white"
+                title="Instagram"
+              >
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path
+                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"
+                  />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="border-t border-gray-700 pt-8">
+          <div
+            class="flex flex-col md:flex-row justify-between items-center gap-4"
+          >
+            <p class="text-gray-400 text-sm">
+              Jolang Alif Khan - A12.2024.07239
+            </p>
+            <p class="text-gray-400 text-sm">   
+            © 2025 All rights reserved. <span id="clock"></span>
+            </p>
+            <div class="flex gap-6">
+              <a
+                href="#"
+                class="footer-link text-gray-400 hover:text-white text-sm"
+                >Privacy Policy</a
+              >
+              <a
+                href="#"
+                class="footer-link text-gray-400 hover:text-white text-sm"
+                >Terms of Service</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // toggle button
+      const darkModeToggles = document.querySelectorAll("#darkModeToggle");
+      const body = document.body;
+
+      // Cek preferensi dark mode tersimpan
+      if (localStorage.getItem("darkMode") === "enabled") {
+        body.classList.add("dark-mode");
+        darkModeToggles.forEach((toggle) => toggle.classList.add("active"));
+      }
+
+      // Tambahkan event ke semua toggle
+      darkModeToggles.forEach((toggle) => {
+        toggle.addEventListener("click", () => {
+          body.classList.toggle("dark-mode");
+          darkModeToggles.forEach((btn) => btn.classList.toggle("active"));
+
+          // Simpan preferensi
+          if (body.classList.contains("dark-mode")) {
+            localStorage.setItem("darkMode", "enabled");
+          } else {
+            localStorage.setItem("darkMode", "disabled");
+          }
+        });
+      });
+      // Navigation
+      const navItems = document.querySelectorAll(".nav-item");
+      const navRail = document.querySelector(".nav-rail");
+      const hamburger = document.getElementById("hamburger");
+      const mobileMenu = document.querySelector(".mobile-menu");
+      const mobileNavItems = document.querySelectorAll(".mobile-nav-item");
+      const nav = document.querySelector(".nav-items");
+
+      let currentActiveIndex = 0;
+      let isHovering = false;
+
+      function updateNavPosition(index, setActive = false) {
+        if (navRail) {
+          navRail.style.setProperty("--index", index + 1);
+        }
+
+        if (setActive) {
+          currentActiveIndex = index;
+          navItems.forEach((item) => item.classList.remove("dot"));
+          if (navItems[index]) {
+            navItems[index].classList.add("dot");
+          }
+        }
+      }
+
+      // Desktop Navigation - Hover & Click
+      navItems.forEach((item, index) => {
+        item.addEventListener("mouseenter", () => {
+          isHovering = true;
+          updateNavPosition(index, false);
+        });
+
+        // Click handler - CEK DULU apakah internal link
+        item.addEventListener("click", (e) => {
+          const href = item.getAttribute('href');
+          
+          // Hanya prevent default untuk internal links (#)
+          if (href && href.startsWith('#')) {
+            e.preventDefault();
+            updateNavPosition(index, true);
+            isHovering = false;
+            
+            // Smooth scroll to section
+            const targetSection = document.querySelector(href);
+            if (targetSection) {
+              const headerHeight = document.querySelector('header').offsetHeight;
+              const targetPosition = targetSection.offsetTop - headerHeight;
+              window.scrollTo({
+                top: targetPosition,
+                behavior: 'smooth'
+              });
+            }
+          }
+          // Jika bukan internal link (seperti promo.html), biarkan redirect normal
+        });
+      });
+
+      if (nav) {
+        nav.addEventListener("mouseleave", () => {
+          isHovering = false;
+          updateNavPosition(currentActiveIndex, false);
+        });
+      }
+
+      if (hamburger) {
+        hamburger.addEventListener("click", () => {
+          hamburger.classList.toggle("active");
+          mobileMenu.classList.toggle("active");
+        });
+      }
+
+      mobileNavItems.forEach((item, index) => {
+        item.addEventListener("click", (e) => {
+          if (hamburger) hamburger.classList.remove("active");
+          if (mobileMenu) mobileMenu.classList.remove("active");
+
+          if (index < navItems.length) {
+            updateNavPosition(index, true);
+          }
+
+          const targetId = item.getAttribute("href");
+          if (targetId && targetId.startsWith("#")) {
+            e.preventDefault();
+            const targetSection = document.querySelector(targetId);
+            if (targetSection) {
+              const headerHeight =
+                document.querySelector("header").offsetHeight;
+              const targetPosition = targetSection.offsetTop - headerHeight;
+              window.scrollTo({
+                top: targetPosition,
+                behavior: "smooth",
+              });
+            }
+          }
+        });
+      });
+
+      const sections = document.querySelectorAll("section[id]");
+      let scrollTimeout;
+
+      window.addEventListener("scroll", () => {
+        clearTimeout(scrollTimeout);
+
+        scrollTimeout = setTimeout(() => {
+          if (isHovering) return;
+
+          const scrollPosition = window.scrollY + 200;
+
+          sections.forEach((section, index) => {
+            if (index >= navItems.length) return;
+
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.offsetHeight;
+
+            if (
+              scrollPosition >= sectionTop &&
+              scrollPosition < sectionTop + sectionHeight
+            ) {
+              if (currentActiveIndex !== index) {
+                updateNavPosition(index, true);
+              }
+            }
+          });
+        }, 50);
+      });
+
+      updateNavPosition(0, true);
+
+      // Projects Data with complete info
+      const projects = [
+        {
+          id: 1,
+          title: "Website BTNG",
+          desc: "BTNG (Basic Training for Next Generation) merupakan program pelatihan DNCC Universitas Dian Nuswantoro yang berfokus pada pengembangan kemampuan teknologi dan soft skill. Saya berkontribusi sebagai Front-End Web Developer, merancang dan mengimplementasikan antarmuka website yang modern dan responsif.",
+          image: "/assets/btng/btng1.png",
+          tech: ["React.ts", "Vite", "Tailwind"],
+          images: [
+            "/assets/btng/btng1.png",
+            "/assets/btng/btng2.png",
+            "/assets/btng/btng3.png",
+            "/assets/btng/btng1.png",
+          ],
+          date: "October 2025",
+          role: "Front End Developer",
+          team: "Team Project",
+          duration: "2 Weeks",
+          status: "Live & Active",
+        },
+        {
+          id: 2,
+          title: "Website Zezkun",
+          desc: "Zezkun adalah platform online yang menghadirkan pilihan jaket gunung thrift berkualitas dengan harga terjangkau. Website ini didesain modern dan informatif, memudahkan pengunjung menemukan berbagai produk jaket outdoor second dari brand ternama seperti Columbia, Eider, Lafuma, Blackyak, Kappa,",
+          image: "/assets/zezkun/zezkun1.png",
+          tech: ["Vue.js", "Vite", "Tailwind"],
+          images: [
+            "/assets/zezkun/zezkun1.png",
+            "/assets/zezkun/zezkun2.png",
+            "/assets/zezkun/zezkun3.png",
+            "/assets/zezkun/zezkun4.png",
+          ],
+          date: "April 2023",
+          role: "Frontend Developer & Designer",
+          team: "Team Project",
+          duration: "3 Weeks",
+          status: "Non Active",
+        },
+        {
+          id: 3,
+          title: "Creativ Labz",
+          desc: "Creativlabz adalah platform resmi milik PT Kreatif Vapelab Indonesia, distributor terkemuka produk liquid USA sejak 2016. Website ini dirancang untuk menghadirkan pengalaman belanja modern dengan tampilan elegan, navigasi intuitif, dan informasi produk yang komprehensif.",
+          image: "/assets/creativlabz/cl1.png",
+          tech: ["Vue.js", "Vite", "Tailwind"],
+          images: [
+            "/assets/creativlabz/cl1.png",
+            "/assets/creativlabz/cl2.png",
+            "/assets/creativlabz/cl3.png",
+            "/assets/creativlabz/cl4.png",
+          ],
+          date: "February 2024",
+          role: "Frontend Developer",
+          team: "Team Project",
+          duration: "1 Months",
+          status: "Non Active",
+        },
+        {
+          id: 4,
+          title: "Website Unisains",
+          desc: "Unisains adalah sebuah website untuk media belajar atau kursus Sains yang di dukung teknologi Augmented Reality yang ditujukan kepada masyarakat umum.",
+          image: "/assets/unisains/uni1.png",
+          tech: ["Vue.js", "Tailwind", "Vite"],
+          images: [
+            "/assets/unisains/uni1.png",
+            "/assets/unisains/uni2.png",
+            "/assets/unisains/uni3.png",
+            "/assets/unisains/uni4.png",
+          ],
+          date: "Mei 2023",
+          role: "Frontend Developer & Designer",
+          team: "Team Project",
+          duration: "6 Moths",
+          status: "Non Active",
+        },
+        {
+          id: 5,
+          title: "Website Space Tourism",
+          desc: "Analytics dashboard for social media management with data visualization, post scheduling, and engagement metrics.",
+          image: "/assets/space-tourism/st1.png",
+          tech: ["Vue.js", "Tailwind", "Vite"],
+          images: [
+            "/assets/space-tourism/st1.png",
+            "/assets/space-tourism/st2.png",
+            "/assets/space-tourism/st3.png",
+            "/assets/space-tourism/st4.png",
+          ],
+          date: "Januari 2024",
+          role: "Frontend Developer",
+          team: "Solo Project",
+          duration: "2 Weeks",
+          status: "Non Active",
+        },
+        {
+          id: 6,
+          title: "Coming Soon",
+          desc: "-",
+          image:
+            "data:image/svg+xml,%3Csvg width='400' height='300' xmlns='http://www.w3.org/2000/svg'%3E%3Crect fill='%23FCBAD3' width='400' height='300'/%3E%3Ctext x='50%25' y='50%25' font-size='24' text-anchor='middle' fill='white'%3ECooming Soon%3C/text%3E%3C/svg%3E",
+          tech: ["-", "-", "-"],
+          images: [
+            "data:image/svg+xml,%3Csvg width='800' height='600' xmlns='http://www.w3.org/2000/svg'%3E%3Crect fill='%23FCBAD3' width='800' height='600'/%3E%3Ctext x='50%25' y='50%25' font-size='32' text-anchor='middle' fill='white' font-weight='bold'%3ECurrent Weather%3C/text%3E%3C/svg%3E",
+            "data:image/svg+xml,%3Csvg width='800' height='600' xmlns='http://www.w3.org/2000/svg'%3E%3Crect fill='%23ECAAC3' width='800' height='600'/%3E%3Ctext x='50%25' y='50%25' font-size='32' text-anchor='middle' fill='white' font-weight='bold'%3E7-Day Forecast%3C/text%3E%3C/svg%3E",
+            "data:image/svg+xml,%3Csvg width='800' height='600' xmlns='http://www.w3.org/2000/svg'%3E%3Crect fill='%23DC9AB3' width='800' height='600'/%3E%3Ctext x='50%25' y='50%25' font-size='32' text-anchor='middle' fill='white' font-weight='bold'%3EHourly Forecast%3C/text%3E%3C/svg%3E",
+            "data:image/svg+xml,%3Csvg width='800' height='600' xmlns='http://www.w3.org/2000/svg'%3E%3Crect fill='%23CC8AA3' width='800' height='600'/%3E%3Ctext x='50%25' y='50%25' font-size='32' text-anchor='middle' fill='white' font-weight='bold'%3EMap View%3C/text%3E%3C/svg%3E",
+          ],
+          date: "-",
+          role: "-",
+          team: "-",
+          duration: "-",
+          status: "-",
+        },
+      ];
+
+      // Save to localStorage for detail page
+      localStorage.setItem("projectsData", JSON.stringify(projects));
+
+      const grid = document.getElementById("project-grid");
+      const seeMoreBtn = document.getElementById("see-more-btn");
+      const btnText = document.getElementById("btn-text");
+
+      let visibleCount = 3;
+
+      const createProjectCard = (project, index) => {
+        return `
+        <div class="project-card border shadow-sm hover:shadow-xl transition-all duration-300 animate-fadeIn" style="animation-delay: ${
+          index * 0.1
+        }s">
+          <img src="${project.image}" alt="${
+          project.title
+        }" class="w-full h-64 object-cover" />
+          
+          <div class="project-content p-6">
+            <h2 class="text-xl font-semibold mb-3">${project.title}</h2>
+            <p class="project-desc text-sm leading-relaxed mb-4" style="color: var(--text-secondary)">${
+              project.desc
+            }</p>
+            
+            <div class="flex flex-wrap gap-2 mb-6">
+              ${project.tech
+                .map(
+                  (tech) => `
+                <span class="px-3 py-1 bg-gray-100 text-gray-700 text-xs rounded-full border border-gray-300 hover:bg-gray-200 transition-colors">${tech}</span>
+              `
+                )
+                .join("")}
+            </div>
+            
+            <a href="project-detail.html?id=${
+              project.id
+            }" class="group relative inline-flex items-center gap-2 font-medium transition-all duration-300 hover:gap-4">
+              <span class="relative">
+                Lihat Project
+                <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-[#FF0000] transition-all duration-300 group-hover:w-full"></span>
+              </span>
+              <svg class="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      `;
+      };
+
+      const renderProjects = () => {
+        const visibleProjects = projects.slice(0, visibleCount);
+        grid.innerHTML = visibleProjects
+          .map((project, index) => createProjectCard(project, index))
+          .join("");
+
+        btnText.textContent =
+          visibleCount >= projects.length ? "Lebih Sedikit" : "Lebih Banyak";
+      };
+
+      seeMoreBtn.addEventListener("click", () => {
+        visibleCount = visibleCount >= projects.length ? 3 : projects.length;
+        renderProjects();
+
+        if (visibleCount === 3) {
+          const projectSection = document.getElementById("project");
+          const headerHeight = document.querySelector("header").offsetHeight;
+          const targetPosition = projectSection.offsetTop - headerHeight;
+          window.scrollTo({ top: targetPosition, behavior: "smooth" });
+        }
+      });
+
+      renderProjects();
+
+      // Certificates Data
+      const certificates = [
+        {
+          title: "Sertifikat Intern Front End Web Developer",
+          issuer: "CAN Creative",
+          date: "2023 - 2024",
+          image: "/assets/certificate/MagangCANCreative.jpg",
+          description:
+            "Sertifikasi komprehensif yang berfokus pada framework Vue.js, mencakup arsitektur berbasis komponen, sistem reaktivitas, manajemen state menggunakan Pinia/Vuex, routing dengan Vue Router, serta penerapan Composition API. Menyelesaikan berbagai proyek praktis yang menunjukkan kemampuan dalam membangun aplikasi web modern, responsif, dan skalabel menggunakan Vue.js.",
+        },
+        {
+          title: "Sertifikat Peserta BTNG Divisi Web",
+          issuer: "DNCC",
+          date: "2024",
+          image: "/assets/certificate/BTNG-DNCC.jpg",
+          description:
+            "Telah mengikuti kegiatan Basic Training for Next Generation (BTNG) Divisi Web yang diselenggarakan oleh DNCC Universitas Dian Nuswantoro, dengan fokus pada pengembangan keterampilan dasar Front-End Web Development menggunakan teknologi web modern serta peningkatan kemampuan kolaborasi dan problem solving di bidang teknologi informasi.",
+        },
+        {
+          title: "Sertifikat Kursus HTML",
+          issuer: "Sololearn",
+          date: "2022",
+          image: "/assets/certificate/CourseSololearnHTML.jpg",
+          description:
+            "Telah menyelesaikan kursus HTML Fundamentals di SoloLearn, yang mencakup pemahaman struktur dasar halaman web, elemen dan tag HTML, pembuatan hyperlink, tabel, formulir, serta penerapan praktik terbaik dalam membangun struktur website yang semantik dan terstandarisasi.",
+        },
+        {
+          title: "Sertifikat Kursus CSS",
+          issuer: "Sololearn",
+          date: "2022",
+          image: "/assets/certificate/CourseSololearnCSS.jpg",
+          description:
+            "Telah menyelesaikan kursus CSS Fundamentals di SoloLearn, yang mencakup pemahaman dasar tentang pengaturan tampilan halaman web menggunakan CSS, termasuk selektor, properti, layout, warna, tipografi, serta penerapan konsep responsive design untuk meningkatkan estetika dan pengalaman pengguna.",
+        },
+        {
+          title: "Sertifikat Pelatihan Fundamental Flutter",
+          issuer: "CourseNet",
+          date: "2022",
+          image: "/assets/certificate/CourseNetFlutter.jpg",
+          description:
+            "Telah menyelesaikan Pelatihan Fundamental Flutter di Course-Net Indonesia, yang berfokus pada penguasaan dasar pengembangan aplikasi mobile lintas platform menggunakan framework Flutter. Materi mencakup struktur proyek Flutter, penggunaan widget, state management, layout responsif, serta integrasi dasar dengan komponen UI interaktif.",
+        },
+        {
+          title: "Sertifikat Kursus Fundamental C#",
+          issuer: "Sololearn",
+          date: "2022",
+          image: "/assets/certificate/CCertificateSololearn.jpg",
+          description:
+            "Telah menyelesaikan kursus Introduction to C# di SoloLearn, yang membahas dasar-dasar pemrograman menggunakan bahasa C#. Materi meliputi struktur program, variabel, tipe data, operator, kontrol alur, fungsi, array, serta konsep dasar pemrograman berorientasi objek (OOP) sebagai pondasi pengembangan aplikasi berbasis .NET.",
+        },
+      ];
+
+      // Render Certificates
+      const certGrid = document.getElementById("certificate-grid");
+      const certModal = document.getElementById("certModal");
+      const closeCertModal = document.getElementById("closeCertModal"); // X button di pojok
+      const backCertModal = document.getElementById("backCertModal"); // Back button di bawah
+
+      const createCertificateCard = (cert, index) => {
+        return `
+    <div class="certificate-card border shadow-sm hover:shadow-xl transition-all duration-300 animate-fadeIn" 
+         style="animation-delay: ${
+           index * 0.1
+         }s; background: var(--bg-primary); border-color: var(--border-color)">
+      <img src="${cert.image}" alt="${
+          cert.title
+        }" class="w-full h-48 object-cover" />
+      <div class="p-6">
+        <h2 class="text-xl font-semibold mb-2" style="color: var(--text-primary)">${
+          cert.title
+        }</h2>
+        <p class="text-sm mb-1" style="color: var(--text-secondary)">${
+          cert.issuer
+        }</p>
+        <p class="text-xs mb-4" style="color: var(--text-secondary)">${
+          cert.date
+        }</p>
+        <button onclick="openCertModal(${index})" class="group inline-flex items-center gap-2 text-[#FF0000] font-medium transition-all duration-300 hover:gap-4">
+          <svg class="eye-icon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+          </svg>
+          <span class="relative">
+            Lihat Sertifikat
+            <span class="absolute bottom-0 left-0 w-0 h-[2px] bg-[#FF0000] transition-all duration-300 group-hover:w-full"></span>
+          </span>
+        </button>
+      </div>
+    </div>
+  `;
+      };
+
+      certGrid.innerHTML = certificates
+        .map((cert, index) => createCertificateCard(cert, index))
+        .join("");
+
+      // Function to close modal
+      function closeCertificateModal() {
+        certModal.classList.remove("active");
+        document.body.style.overflow = "auto";
+      }
+
+      // Certificate Modal Functions
+      window.openCertModal = function (index) {
+        const cert = certificates[index];
+        document.getElementById("certModalImage").src = cert.image;
+        document.getElementById("certModalTitle").textContent = cert.title;
+        document.getElementById("certModalIssuer").textContent = cert.issuer;
+        document.getElementById("certModalDate").textContent = cert.date;
+        document.getElementById("certModalDesc").textContent = cert.description;
+        certModal.classList.add("active");
+        document.body.style.overflow = "hidden";
+      };
+
+      // Close button (X) event
+      closeCertModal.addEventListener("click", closeCertificateModal);
+
+      // Back button event
+      backCertModal.addEventListener("click", closeCertificateModal);
+
+      // Close modal when clicking outside
+      certModal.addEventListener("click", (e) => {
+        if (e.target === certModal) {
+          closeCertificateModal();
+        }
+      });
+
+      // Close modal with Escape key
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && certModal.classList.contains("active")) {
+          closeCertificateModal();
+        }
+      });
+
+      // Contact Form
+      const contactForm = document.getElementById("contactForm");
+      if (contactForm) {
+        contactForm.addEventListener("submit", (e) => {
+          e.preventDefault();
+          alert("Terima kasih! Pesan Anda telah terkirim.");
+          contactForm.reset();
+        });
+      }
+    </script>
+  </body>
+</html>
